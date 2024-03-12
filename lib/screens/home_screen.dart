@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:time_sprint/colors/colors.dart';
 import 'package:time_sprint/stop_watch_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,10 +10,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Time Sprint'),
+        title: Text(
+          'Time Sprint',
+          style: GoogleFonts.roboto(
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: CustomColors.lightBackgroundColor,
       ),
       body: const StopwatchWidget(),
     );

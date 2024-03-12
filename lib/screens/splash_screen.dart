@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:time_sprint/colors/colors.dart';
 import 'package:time_sprint/screens/home_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(milliseconds: 2500));
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -28,9 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 201, 33, 64), Colors.deepPurple],
-          ),
+          color: CustomColors.lightBackgroundColor,
         ),
         child: Center(
           child: Column(
@@ -38,13 +38,12 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Image.asset('assets/images/image.png', height: 340),
               const SizedBox(height: 80),
-              const Text(
+              Text(
                 "Time Sprint",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 13, 13, 13),
-                ),
+                style: GoogleFonts.dmSans(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 38,
+                    color: CustomColors.foregroundColor),
               ),
             ],
           ),

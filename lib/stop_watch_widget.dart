@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:time_sprint/button_widget.dart';
+import 'package:time_sprint/colors/colors.dart';
 
 class StopwatchWidget extends StatefulWidget {
   const StopwatchWidget({super.key});
@@ -21,55 +22,68 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
     String formattedTime = _formatTime(_stopwatch.elapsedMilliseconds ~/ 1000);
 
     var startButton = ButtonWidget(
-        buttonIcon: const Icon(Icons.start),
-        title: "Start",
-        onTap: _startTimer);
+      title: "START",
+      onTap: _startTimer,
+    );
     var stopButton = ButtonWidget(
-        buttonIcon: const Icon(Icons.stop), title: "Stop", onTap: _stopTimer);
+      title: "STOP",
+      onTap: _stopTimer,
+    );
     var resetButton = ButtonWidget(
-        buttonIcon: const Icon(Icons.restart_alt_sharp),
-        title: "Reset",
-        onTap: _resetTimer);
+      title: "RESET",
+      onTap: _resetTimer,
+    );
     var lapButton = ButtonWidget(
-        buttonIcon: const Icon(Icons.list),
-        title: "Lap",
-        onTap: () {
-          lapsedTime.add(formattedTime);
-        });
+      title: "LAP",
+      onTap: () => lapsedTime.add(formattedTime),
+    );
 
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color.fromARGB(255, 201, 33, 64), Colors.deepPurple],
-        ),
+        color: CustomColors.lightBackgroundColor,
       ),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const Padding(padding: EdgeInsets.only(top: 50)),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox(
-                  width: 250,
-                  height: 250,
-                  child: CircularProgressIndicator(
-                    value: progress,
-                    strokeWidth: 15,
-                    backgroundColor: const Color.fromARGB(255, 176, 164, 164),
-                    color: Colors.blue,
+            Card(
+              color: const Color.fromARGB(255, 6, 26, 79),
+              elevation: 30,
+              shape: const CircleBorder(),
+              shadowColor: Colors.black,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 250,
+                    height: 250,
+                    child: CircularProgressIndicator(
+                      strokeCap: StrokeCap.round,
+                      value: progress,
+                      strokeWidth: 12,
+                      backgroundColor: CustomColors.darkBackgroundColor,
+                      color: CustomColors.foregroundColor,
+                    ),
                   ),
-                ),
-                Text(
-                  formattedTime,
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
+                  Card(
+                    color: CustomColors.darkBackgroundColor,
+                    elevation: 10,
+                    shadowColor: const Color.fromARGB(255, 1, 6, 19),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 7, left: 7),
+                      child: Text(
+                        formattedTime,
+                        style: GoogleFonts.montserrat(
+                          color: CustomColors.foregroundColor,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const Padding(
               padding: EdgeInsets.all(10),
@@ -91,18 +105,31 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
                 ),
               ],
             ),
+            const Padding(padding: EdgeInsets.all(10)),
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) => Center(
                   child: Card(
-                    elevation: 15,
+                    color: CustomColors.darkBackgroundColor,
+                    elevation: 4,
+                    shadowColor: CustomColors.shadowColor,
                     child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Text(lapsedTime[index])),
+                      padding: const EdgeInsets.fromLTRB(35, 10, 35, 10),
+                      child: Text(
+                        lapsedTime[index],
+                        style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.bold,
+                            color: CustomColors.foregroundColor,
+                            fontSize: 24),
+                      ),
+                    ),
                   ),
                 ),
                 itemCount: lapsedTime.length,
               ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(15),
             ),
           ],
         ),
