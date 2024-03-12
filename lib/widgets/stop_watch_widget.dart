@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:time_sprint/button_widget.dart';
+import 'package:time_sprint/widgets/button_widget.dart';
 import 'package:time_sprint/colors/colors.dart';
+import 'package:time_sprint/widgets/laps_list_widget.dart';
+import 'package:time_sprint/widgets/stopwatch_face.dart';
 
 class StopwatchWidget extends StatefulWidget {
   const StopwatchWidget({super.key});
@@ -46,44 +47,12 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(padding: EdgeInsets.only(top: 50)),
-            Card(
-              color: const Color.fromARGB(255, 6, 26, 79),
-              elevation: 30,
-              shape: const CircleBorder(),
-              shadowColor: Colors.black,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  SizedBox(
-                    width: 250,
-                    height: 250,
-                    child: CircularProgressIndicator(
-                      strokeCap: StrokeCap.round,
-                      value: progress,
-                      strokeWidth: 12,
-                      backgroundColor: CustomColors.darkBackgroundColor,
-                      color: CustomColors.foregroundColor,
-                    ),
-                  ),
-                  Card(
-                    color: CustomColors.darkBackgroundColor,
-                    elevation: 10,
-                    shadowColor: const Color.fromARGB(255, 1, 6, 19),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 7, left: 7),
-                      child: Text(
-                        formattedTime,
-                        style: GoogleFonts.montserrat(
-                          color: CustomColors.foregroundColor,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            const Padding(
+              padding: EdgeInsets.only(top: 50),
+            ),
+            StopwatchFace(
+              formattedTime: formattedTime,
+              progress: progress,
             ),
             const Padding(
               padding: EdgeInsets.all(10),
@@ -105,28 +74,11 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
                 ),
               ],
             ),
-            const Padding(padding: EdgeInsets.all(10)),
+            const Padding(
+              padding: EdgeInsets.all(10),
+            ),
             Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) => Center(
-                  child: Card(
-                    color: CustomColors.darkBackgroundColor,
-                    elevation: 4,
-                    shadowColor: CustomColors.shadowColor,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(35, 10, 35, 10),
-                      child: Text(
-                        lapsedTime[index],
-                        style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.foregroundColor,
-                            fontSize: 24),
-                      ),
-                    ),
-                  ),
-                ),
-                itemCount: lapsedTime.length,
-              ),
+              child: LapsListWidget(lapsedTime: lapsedTime),
             ),
             const Padding(
               padding: EdgeInsets.all(15),

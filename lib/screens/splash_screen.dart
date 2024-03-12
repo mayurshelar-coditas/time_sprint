@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:time_sprint/colors/colors.dart';
 import 'package:time_sprint/screens/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+///Splash screen to enhance user experience.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -14,12 +17,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToHome(); // No need to pass context here
+    _navigateToHome();
   }
 
   _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2500));
     Navigator.pushReplacement(
+      ///As learning is at beginner to intermediate level we will ignore performance optimization warning.
       context,
       MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
