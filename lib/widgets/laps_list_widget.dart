@@ -19,7 +19,7 @@ class LapsListWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(35, 10, 35, 10),
             child: Text(
-              lapsedTime[index],
+              'Lap ${index + 1} - ${lapsedTime[index]}',
               style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.bold,
                   color: CustomColors.foregroundColor,
@@ -42,7 +42,7 @@ class LapsListWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
-              lapsedTime[index],
+              'Lap ${index + 1} -  ${lapsedTime[index]}',
               style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.bold,
                   color: CustomColors.foregroundColor,
