@@ -9,17 +9,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Time Sprint',
-          style: GoogleFonts.roboto(
-            fontWeight: FontWeight.bold,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Time Sprint',
+            style: GoogleFonts.roboto(
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          backgroundColor: CustomColors.lightBackgroundColor,
         ),
-        backgroundColor: CustomColors.lightBackgroundColor,
+        body: const StopwatchWidget(),
       ),
-      body: const StopwatchWidget(),
     );
   }
 }

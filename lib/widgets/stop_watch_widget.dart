@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:time_sprint/widgets/button_widget.dart';
 import 'package:time_sprint/colors/colors.dart';
 import 'package:time_sprint/widgets/laps_list_widget.dart';
@@ -15,7 +16,7 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
   final Stopwatch _stopwatch = Stopwatch();
   Timer? _timer;
   bool isRunning = false;
-  List<String> lapsedTime = [];
+  final List<String> lapsedTime = [];
 
   @override
   Widget build(context) {
@@ -39,54 +40,92 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
       onTap: () => lapsedTime.add(formattedTime),
     );
 
-    return Container(
-      decoration: const BoxDecoration(
-        color: CustomColors.lightBackgroundColor,
-      ),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 50),
-            ),
-            StopwatchFace(
-              formattedTime: formattedTime,
-              progress: progress,
-            ),
-            const Padding(
-              padding: EdgeInsets.all(10),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 40),
-                ),
-                isRunning ? lapButton : resetButton,
-                const Spacer(),
-                const Padding(
-                  padding: EdgeInsets.only(right: 40),
-                ),
-                isRunning ? stopButton : startButton,
-                const Padding(
-                  padding: EdgeInsets.only(right: 40),
-                ),
-              ],
-            ),
-            const Padding(
-              padding: EdgeInsets.all(10),
-            ),
-            Expanded(
-              child: LapsListWidget(lapsedTime: lapsedTime),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(15),
-            ),
-          ],
+    if (MediaQuery.of(context).orientation == Orientation.portrait) {
+      return Container(
+        decoration: const BoxDecoration(
+          color: CustomColors.lightBackgroundColor,
         ),
-      ),
-    );
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 50),
+              ),
+              StopwatchFace(formattedTime: formattedTime, progress: progress),
+              const Padding(
+                padding: EdgeInsets.all(10),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 40),
+                  ),
+                  isRunning ? lapButton : resetButton,
+                  const Spacer(),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 40),
+                  ),
+                  isRunning ? stopButton : startButton,
+                  const Padding(
+                    padding: EdgeInsets.only(right: 40),
+                  ),
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.all(10),
+              ),
+              Expanded(
+                child: LapsListWidget(lapsedTime: lapsedTime),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(15),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        decoration: const BoxDecoration(
+          color: CustomColors.lightBackgroundColor,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 40, top: 10),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                children: [
+                  StopwatchFace(
+                    formattedTime: formattedTime,
+                    progress: progress,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8),
+                  ),
+                  Row(
+                    children: [
+                      isRunning ? lapButton : resetButton,
+                      isRunning ? stopButton : startButton,
+                    ],
+                  ),
+                ],
+              ),
+              Expanded(
+                child: LapsListWidget(
+                  lapsedTime: lapsedTime,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(10),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
   }
 
   void _startTimer() {
@@ -109,7 +148,7 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
     _stopTimer();
     _stopwatch.reset();
     setState(() {
-      lapsedTime = [];
+      lapsedTime.clear();
     });
   }
 

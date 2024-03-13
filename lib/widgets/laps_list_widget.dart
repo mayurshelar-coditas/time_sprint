@@ -17,6 +17,29 @@ class LapsListWidget extends StatelessWidget {
           elevation: 4,
           shadowColor: CustomColors.shadowColor,
           child: Padding(
+            padding: const EdgeInsets.fromLTRB(35, 10, 35, 10),
+            child: Text(
+              lapsedTime[index],
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.bold,
+                  color: CustomColors.foregroundColor,
+                  fontSize: 24),
+            ),
+          ),
+        ),
+      ),
+      itemCount: lapsedTime.length,
+    );
+  }
+
+  Widget laps() {
+    return ListView.builder(
+      itemBuilder: (context, index) => Center(
+        child: Card(
+          color: CustomColors.darkBackgroundColor,
+          elevation: 4,
+          shadowColor: CustomColors.shadowColor,
+          child: Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
               lapsedTime[index],
